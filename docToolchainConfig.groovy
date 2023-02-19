@@ -38,7 +38,8 @@ taskInputsFiles = []
 // Configuration for customTasks
 // create a new Task with ./dtcw createTask
 customTasks = [
-/** customTasks **/
+    'scripts/exportStructurizr.gradle',
+    /** customTasks **/
 ]
 
 

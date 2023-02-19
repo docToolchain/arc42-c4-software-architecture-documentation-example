@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        maven {
+            credentials {
+                username mavenUsername
+                password mavenPassword
+            }
+            url mavenRepository
+        }
+    }
+}
+
+
+// Question: how can we use the functionality provided by https://github.com/structurizr/cli?
+//
+// The current hack provided with the 'structurizrCli' task is just a proof of
+// concept to show how it can be done.
+
+
+//tag::exportStructurizr[]
+task exportStructurizr (
+        type: Exec,
+        group: 'docToolchain',
+        description: 'exports the views of a Structurizr DSL file to diagramms'
+) {
+    workingDir "$docDir"
+    println "---\n$targetDir\n$docDir\n$projectDir\n---"
+    executable = "$docDir/bin/structurizr-cli/structurizr.sh"
+    args = ["export",
+            "-w","documentation/bank.dsl",
+            "-format","plantuml/structurizr",
+            "-output","documentation/diagrams"
+    ]
+
+}
+//end::exportStructurizr[]
+
+// task exportStructurizr (
+//         description: 'exports the views of a Structurizr DSL file to diagramms',
+//         group: 'docToolchain'
+// ) {
+//     doLast {
+//         //make sure to remove old diagrams
+//         new File(docDir, 'src/docs/structurizr').deleteDir()
+//         //create a readme to clarify things
+//         def readme = """This folder contains exported diagrams from Strcturizr DSL files.
+//
+// Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+//
+// This is to make sure that they can be used from environments other than windows.
+//
+// # Warning!
+//
+// **The contents of this folder will be overwritten with each re-export!**
+//
+// use `gradle exportStructurizr` to re-export files
+// """
+//         new File(docDir, 'src/docs/structurizr/.').mkdirs()
+//         new File(docDir, 'src/docs/structurizr/README.adoc').write(readme)
+//         // def sourcePath = new File(docDir, 'src/docs/.').canonicalPath
+//     }
+// }
