@@ -28,7 +28,7 @@ task exportStructurizr (
         description: 'exports the views of a Structurizr DSL file to diagramms'
 ) {
     StructurizrDslParser parser = new StructurizrDslParser();
-    parser.parse(new File("${docDir}/documentation/bank.dsl"));
+    parser.parse(new File("${docDir}/documentation/workspace.dsl"));
     Workspace workspace = parser.getWorkspace();
     ThemeUtils.loadThemes(workspace);
     StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
@@ -40,5 +40,22 @@ task exportStructurizr (
         def legend = new File(docDir,"/documentation/diagrams/structurizr-"+diagram.key+"-key.puml")
         legend.write(diagram.legend.definition)
     }
+}
+task runStructurizrLite (
+        type: Exec,
+        group: 'docToolchain',
+        description: 'exports the views of a Structurizr DSL file to diagramms'
+) {
+    workingDir "$docDir"
+    executable = "docker"
+    //docker run --rm  -p 8080:8080 -v /home/rdmueller/projects-wsl/structurizr/data:/usr/local/structurizr structurizr/lite
+    args = ["run",
+            "-i",
+            "--rm",
+            "-p","8080:8080",
+            "-v", new File(docDir,"/documentation/").canonicalPath+":/usr/local/structurizr",
+            "structurizr/lite"
+    ]
+
 }
 //end::exportStructurizr[]

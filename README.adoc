@@ -53,3 +53,9 @@ Generate the documentation as PDF representation
 ./dtcw generateSite
 ----
 
+* you can even start Structurizr Lite
+
+[source, bash]
+----
+./dtcw runStructurizrLite
+----

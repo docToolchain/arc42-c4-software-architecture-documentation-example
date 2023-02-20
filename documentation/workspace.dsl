@@ -134,7 +134,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
     views {
         systemlandscape "SystemLandscape" {
             include *
-            autoLayout
+            //autoLayout
         }
 
         systemcontext internetBankingSystem "SystemContext" {
@@ -145,7 +145,7 @@ workspace "Big Bank plc" "This is an example workspace to illustrate the key fea
                 mainframe
                 email
             }
-            autoLayout
+            //autoLayout
         }
 
         container internetBankingSystem "Containers" {
